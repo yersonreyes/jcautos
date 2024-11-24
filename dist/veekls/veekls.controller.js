@@ -19,6 +19,9 @@ let VeeklsController = class VeeklsController {
     findAll() {
         return this.veeklsService.processarVehiculos();
     }
+    findAll2() {
+        return 'Hola mundo';
+    }
 };
 exports.VeeklsController = VeeklsController;
 __decorate([
@@ -27,6 +30,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], VeeklsController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)('test'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], VeeklsController.prototype, "findAll2", null);
 exports.VeeklsController = VeeklsController = __decorate([
     (0, common_1.Controller)('veekls'),
     __metadata("design:paramtypes", [veekls_service_1.VeeklsService])

@@ -10,4 +10,10 @@ export class VeeklsController {
     return this.veeklsService.processarVehiculos();
   }
 
+
+  @Get('test')
+  findAll2() {
+    return 'Hola mundo';
+  }
+
 }
