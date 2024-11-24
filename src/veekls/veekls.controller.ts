@@ -7,7 +7,7 @@ export class VeeklsController {
 
   @Get()
   findAll() {
-    return this.veeklsService.getVehiclesData();
+    return this.veeklsService.processarVehiculos();
   }
 
 }

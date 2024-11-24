@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword # Cambia esto por una contraseña segura
+      MYSQL_DATABASE: mydatabase       # Nombre de la base de datos que se creará
+      MYSQL_USER: user                 # Nombre de usuario que se creará
+      MYSQL_PASSWORD: userpassword     # Contraseña para el usuario
+    ports:
+      - "3306:3306"                    # Mapea el puerto 3306 al host
+    volumes:
+      - mysql_data:/var/lib/mysql      # Volumen para persistencia de datos
+    networks:
+      - mysql_network
+
+volumes:
+  mysql_data:
+
+networks:
+  mysql_network:
+    driver: bridge
