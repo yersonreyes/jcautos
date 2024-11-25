@@ -138,7 +138,7 @@ let VeeklsService = class VeeklsService {
 };
 exports.VeeklsService = VeeklsService;
 __decorate([
-    (0, schedule_1.Interval)(60 * 60 * 1000),
+    (0, schedule_1.Interval)(5 * 60 * 1000),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
