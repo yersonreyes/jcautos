@@ -35,7 +35,7 @@ let VeeklsService = class VeeklsService {
         this.vehicles = [];
     }
     async descargarImagen(imageUrl, fileName) {
-        const directory = path.join(__dirname, '..', '..', '..', 'public_html', 'wp-content', 'uploads', 'images');
+        const directory = path.join(__dirname, '..', 'images');
         if (!(0, fs_1.existsSync)(directory)) {
             (0, fs_1.mkdirSync)(directory, { recursive: true });
         }

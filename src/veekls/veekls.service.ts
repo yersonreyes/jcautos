@@ -28,11 +28,10 @@ export class VeeklsService {
 
   async descargarImagen(imageUrl: string, fileName: string): Promise<string> {
     // Directorio donde se guardará la imagen
-    //const directory = path.join(__dirname, '..', 'images'); // puedes ajustar la ruta
+    const directory = path.join(__dirname, '..', 'images'); // puedes ajustar la ruta
 
-    //const directory = path.join('/', 'public_html', 'wp-content', 'uploads');
 
-    const directory = path.join(__dirname, '..','..','..', 'public_html','wp-content','uploads','images'); 
+    //const directory = path.join(__dirname, '..','..','..', 'public_html','wp-content','uploads','images'); 
 
     // Verifica si el directorio existe; si no, créalo
     if (!existsSync(directory)) {
@@ -162,7 +161,6 @@ export class VeeklsService {
   }
 
   @Interval(5 * 60 * 1000) // Cada 5 minutos en milisegundos
-
   async tareaProgramada() {
     try {
       await lastValueFrom(this.getVehiclesData());
