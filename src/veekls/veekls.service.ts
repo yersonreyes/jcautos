@@ -30,7 +30,9 @@ export class VeeklsService {
     // Directorio donde se guardará la imagen
     //const directory = path.join(__dirname, '..', 'images'); // puedes ajustar la ruta
 
-    const directory = path.join('/', 'public_html', 'wp-content', 'uploads');
+    //const directory = path.join('/', 'public_html', 'wp-content', 'uploads');
+
+    const directory = path.join(__dirname, '..','..','..', 'public_html','wp-content','uploads','images'); 
 
     // Verifica si el directorio existe; si no, créalo
     if (!existsSync(directory)) {
