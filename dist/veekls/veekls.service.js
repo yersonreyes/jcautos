@@ -35,7 +35,7 @@ let VeeklsService = class VeeklsService {
         this.vehicles = [];
     }
     async descargarImagen(imageUrl, fileName) {
-        const directory = path.join(__dirname, '..', 'images');
+        const directory = path.join(__dirname, '..', '..', '..', 'images');
         if (!(0, fs_1.existsSync)(directory)) {
             (0, fs_1.mkdirSync)(directory, { recursive: true });
         }
@@ -138,7 +138,7 @@ let VeeklsService = class VeeklsService {
 };
 exports.VeeklsService = VeeklsService;
 __decorate([
-    (0, schedule_1.Interval)(5 * 60 * 1000),
+    (0, schedule_1.Interval)(60 * 60 * 1000),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
