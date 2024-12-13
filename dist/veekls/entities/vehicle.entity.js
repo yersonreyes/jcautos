@@ -77,6 +77,6 @@ __decorate([
     __metadata("design:type", Array)
 ], Vehicle.prototype, "pictures", void 0);
 exports.Vehicle = Vehicle = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)('wp0p_vehicle')
 ], Vehicle);
 //# sourceMappingURL=vehicle.entity.js.map

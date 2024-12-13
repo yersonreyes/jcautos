@@ -28,6 +28,6 @@ __decorate([
     __metadata("design:type", vehicle_entity_1.Vehicle)
 ], Characteristic.prototype, "vehicle", void 0);
 exports.Characteristic = Characteristic = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)('wp0p_characteristic')
 ], Characteristic);
 //# sourceMappingURL=characteristic.entity.js.map
