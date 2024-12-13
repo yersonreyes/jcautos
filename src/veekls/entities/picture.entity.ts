@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Vehicle } from './vehicle.entity';
 
-@Entity()
+@Entity('wp0p_picture')
 export class Picture {
   @PrimaryGeneratedColumn('uuid')
   id: string;

@@ -76,6 +76,24 @@ export class VeeklsService {
         }
     )});
   }
+  getVehiclesDataPrueba(skip: number = 0, limit: number = 50): Observable<any> {
+    const url = `https://vehicles.public.api.veekls.com/`;
+    const headers = {
+      'Authorization': 'Basic ' + 'NjEyNGYyY2Q4MWY2YjQ1MGFlNWIxOTNhOkFrMmdOOTVVYVoxZUxIS0NyWjAyQkVoYmlaU1FJMU5EczdQeUY4b0RKdjg='
+    };
+    return this.httpService.get(url, { headers }).pipe(
+      map(async response => {
+        this.vehicles = response.data;
+        const responseHeaders = response.headers; // Leer los headers de la respuesta
+        console.log('Response Headers:', responseHeaders);
+        return this.vehicles;
+      }),
+      catchError(error => {
+        console.error('Error fetching data:', error);
+        return throwError(() => new Error('Error fetching data from vehicles API'));
+      }),
+    );
+  }
 
   getVehiclesData(skip: number = 0, limit: number = 50): Observable<any> {
     const url = `https://vehicles.public.api.veekls.com/?skip=${skip}&limit=${limit}`;
@@ -88,9 +106,6 @@ export class VeeklsService {
         await this.pictureRepository.createQueryBuilder().delete().from('picture').execute();
         await this.characteristicRepository.createQueryBuilder().delete().from('characteristic').execute();
         await this.vehicleRepository.createQueryBuilder().delete().from('vehicle').execute();
-
-
-
         return this.vehicles;
       }),
       catchError(error => {

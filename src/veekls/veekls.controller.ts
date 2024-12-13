@@ -10,6 +10,12 @@ export class VeeklsController {
     return this.veeklsService.processarVehiculos();
   }
 
+  @Get('autos')
+  verautos() {
+    return this.veeklsService.getVehiclesDataPrueba();
+  }
+
+
 
   @Get('test')
   findAll2() {

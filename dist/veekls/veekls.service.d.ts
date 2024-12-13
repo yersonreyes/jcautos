@@ -13,6 +13,7 @@ export declare class VeeklsService {
     constructor(vehicleRepository: Repository<Vehicle>, characteristicRepository: Repository<Characteristic>, pictureRepository: Repository<Picture>, httpService: HttpService);
     descargarImagen(imageUrl: string, fileName: string): Promise<string>;
     descargaImagenDeVehiculos(): Promise<void>;
+    getVehiclesDataPrueba(skip?: number, limit?: number): Observable<any>;
     getVehiclesData(skip?: number, limit?: number): Observable<any>;
     createVehicle(data: any): Promise<Vehicle>;
     processarVehiculos(): Promise<any[]>;

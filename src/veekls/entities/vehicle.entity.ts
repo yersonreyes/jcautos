@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMan
 import { Picture } from './picture.entity';
 import { Characteristic } from './characteristic.entity';
 
-@Entity()
+@Entity('wp0p_vehicle')
 export class Vehicle {
   @PrimaryGeneratedColumn('uuid')
   id: string;

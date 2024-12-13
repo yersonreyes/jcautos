@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Vehicle } from './vehicle.entity';
 
-@Entity()
+@Entity('wp0p_characteristic')
 export class Characteristic {
   @PrimaryGeneratedColumn('uuid')
   id: string;

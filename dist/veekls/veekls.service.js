@@ -66,6 +66,21 @@ let VeeklsService = class VeeklsService {
             });
         });
     }
+    getVehiclesDataPrueba(skip = 0, limit = 50) {
+        const url = `https://vehicles.public.api.veekls.com/`;
+        const headers = {
+            'Authorization': 'Basic ' + 'NjEyNGYyY2Q4MWY2YjQ1MGFlNWIxOTNhOkFrMmdOOTVVYVoxZUxIS0NyWjAyQkVoYmlaU1FJMU5EczdQeUY4b0RKdjg='
+        };
+        return this.httpService.get(url, { headers }).pipe((0, operators_1.map)(async (response) => {
+            this.vehicles = response.data;
+            const responseHeaders = response.headers;
+            console.log('Response Headers:', responseHeaders);
+            return this.vehicles;
+        }), (0, operators_1.catchError)(error => {
+            console.error('Error fetching data:', error);
+            return (0, rxjs_1.throwError)(() => new Error('Error fetching data from vehicles API'));
+        }));
+    }
     getVehiclesData(skip = 0, limit = 50) {
         const url = `https://vehicles.public.api.veekls.com/?skip=${skip}&limit=${limit}`;
         const headers = {
