@@ -81,7 +81,7 @@ let VeeklsService = class VeeklsService {
             return (0, rxjs_1.throwError)(() => new Error('Error fetching data from vehicles API'));
         }));
     }
-    getVehiclesData(skip = 0, limit = 50) {
+    getVehiclesData(skip = 0, limit = 100) {
         const url = `https://vehicles.public.api.veekls.com/?skip=${skip}&limit=${limit}`;
         const headers = {
             'Authorization': 'Basic ' + 'NjEyNGYyY2Q4MWY2YjQ1MGFlNWIxOTNhOkFrMmdOOTVVYVoxZUxIS0NyWjAyQkVoYmlaU1FJMU5EczdQeUY4b0RKdjg='

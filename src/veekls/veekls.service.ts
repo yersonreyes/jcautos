@@ -95,7 +95,7 @@ export class VeeklsService {
     );
   }
 
-  getVehiclesData(skip: number = 0, limit: number = 50): Observable<any> {
+  getVehiclesData(skip: number = 0, limit: number = 100): Observable<any> {
     const url = `https://vehicles.public.api.veekls.com/?skip=${skip}&limit=${limit}`;
     const headers = {
       'Authorization': 'Basic ' + 'NjEyNGYyY2Q4MWY2YjQ1MGFlNWIxOTNhOkFrMmdOOTVVYVoxZUxIS0NyWjAyQkVoYmlaU1FJMU5EczdQeUY4b0RKdjg='
