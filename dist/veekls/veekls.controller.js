@@ -23,7 +23,7 @@ let VeeklsController = class VeeklsController {
         return this.veeklsService.getVehiclesDataPrueba();
     }
     findAll2() {
-        return 'Hola mundo';
+        return 'v001';
     }
 };
 exports.VeeklsController = VeeklsController;
