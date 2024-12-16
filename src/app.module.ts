@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { VeeklsModule } from './veekls/veekls.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -20,7 +19,7 @@ import { ScheduleModule } from '@nestjs/schedule';
       synchronize: true,        // Para desarrollo, puedes dejarlo en true; en producción es mejor false
     }),
     VeeklsModule],
-  controllers: [AppController],
+  controllers: [],
   providers: [AppService],
 })
 export class AppModule {}

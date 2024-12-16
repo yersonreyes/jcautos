@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { VeeklsService } from './veekls.service';
 
-@Controller('veekls')
+@Controller('api/veekls')
 export class VeeklsController {
   constructor(private readonly veeklsService: VeeklsService) {}
 
@@ -14,8 +14,6 @@ export class VeeklsController {
   verautos() {
     return this.veeklsService.getVehiclesDataPrueba();
   }
-
-
 
   @Get('test')
   findAll2() {

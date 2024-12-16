@@ -46,7 +46,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], VeeklsController.prototype, "findAll2", null);
 exports.VeeklsController = VeeklsController = __decorate([
-    (0, common_1.Controller)('veekls'),
+    (0, common_1.Controller)('api/veekls'),
     __metadata("design:paramtypes", [veekls_service_1.VeeklsService])
 ], VeeklsController);
 //# sourceMappingURL=veekls.controller.js.map
