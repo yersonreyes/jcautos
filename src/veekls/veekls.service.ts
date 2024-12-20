@@ -103,11 +103,11 @@ export class VeeklsService {
       map(async response => {
         this.vehicles = response.data;
         console.log('Vehículos obtenidos:', this.vehicles.length);
-        await this.pictureRepository.createQueryBuilder().delete().from('picture').execute();
+        await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
         console.log('Imágenes eliminadas');
-        await this.characteristicRepository.createQueryBuilder().delete().from('characteristic').execute();
+        await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
         console.log('Características eliminadas');
-        await this.vehicleRepository.createQueryBuilder().delete().from('vehicle').execute();
+        await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
         console.log('Vehículos eliminados');
         return this.vehicles;
       }),
