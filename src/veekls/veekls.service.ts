@@ -85,7 +85,6 @@ export class VeeklsService {
       map(async response => {
         this.vehicles = response.data;
         const responseHeaders = response.headers; // Leer los headers de la respuesta
-        console.log('Response Headers:', responseHeaders);
         return this.vehicles;
       }),
       catchError(error => {
@@ -103,9 +102,13 @@ export class VeeklsService {
     return this.httpService.get(url, { headers }).pipe(
       map(async response => {
         this.vehicles = response.data;
+        console.log('Vehículos obtenidos:', this.vehicles.length);
         await this.pictureRepository.createQueryBuilder().delete().from('picture').execute();
+        console.log('Imágenes eliminadas');
         await this.characteristicRepository.createQueryBuilder().delete().from('characteristic').execute();
+        console.log('Características eliminadas');
         await this.vehicleRepository.createQueryBuilder().delete().from('vehicle').execute();
+        console.log('Vehículos eliminados');
         return this.vehicles;
       }),
       catchError(error => {
@@ -179,7 +182,9 @@ export class VeeklsService {
   async tareaProgramada() {
     try {
       await lastValueFrom(this.getVehiclesData());
+      console.log('Vehículos obtenidos:', this.vehicles.length);
       await this.descargaImagenDeVehiculos();
+      console.log('Imágenes descargadas');
       await Promise.all(this.vehicles.map(async (vehicle) => {
         return this.createVehicle(vehicle);
       }));

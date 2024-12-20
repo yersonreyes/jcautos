@@ -74,7 +74,6 @@ let VeeklsService = class VeeklsService {
         return this.httpService.get(url, { headers }).pipe((0, operators_1.map)(async (response) => {
             this.vehicles = response.data;
             const responseHeaders = response.headers;
-            console.log('Response Headers:', responseHeaders);
             return this.vehicles;
         }), (0, operators_1.catchError)(error => {
             console.error('Error fetching data:', error);
@@ -88,9 +87,13 @@ let VeeklsService = class VeeklsService {
         };
         return this.httpService.get(url, { headers }).pipe((0, operators_1.map)(async (response) => {
             this.vehicles = response.data;
+            console.log('Vehículos obtenidos:', this.vehicles.length);
             await this.pictureRepository.createQueryBuilder().delete().from('picture').execute();
+            console.log('Imágenes eliminadas');
             await this.characteristicRepository.createQueryBuilder().delete().from('characteristic').execute();
+            console.log('Características eliminadas');
             await this.vehicleRepository.createQueryBuilder().delete().from('vehicle').execute();
+            console.log('Vehículos eliminados');
             return this.vehicles;
         }), (0, operators_1.catchError)(error => {
             console.error('Error fetching data:', error);
@@ -140,7 +143,9 @@ let VeeklsService = class VeeklsService {
     async tareaProgramada() {
         try {
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData());
+            console.log('Vehículos obtenidos:', this.vehicles.length);
             await this.descargaImagenDeVehiculos();
+            console.log('Imágenes descargadas');
             await Promise.all(this.vehicles.map(async (vehicle) => {
                 return this.createVehicle(vehicle);
             }));
