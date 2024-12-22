@@ -89,6 +89,7 @@ export class VeeklsService {
       }
     });
 
+    return [names, files];
 
   }
 

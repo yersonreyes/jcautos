@@ -69,6 +69,7 @@ let VeeklsService = class VeeklsService {
                 await this.eliminarImagen(filePath);
             }
         });
+        return [names, files];
     }
     async eliminarImagen(filePath) {
         try {
