@@ -25,6 +25,9 @@ let VeeklsController = class VeeklsController {
     findAll2() {
         return 'v001';
     }
+    delete() {
+        return this.veeklsService.eliminarImagenes();
+    }
 };
 exports.VeeklsController = VeeklsController;
 __decorate([
@@ -45,6 +48,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], VeeklsController.prototype, "findAll2", null);
+__decorate([
+    (0, common_1.Get)('deleteImages'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], VeeklsController.prototype, "delete", null);
 exports.VeeklsController = VeeklsController = __decorate([
     (0, common_1.Controller)('api/veekls'),
     __metadata("design:paramtypes", [veekls_service_1.VeeklsService])

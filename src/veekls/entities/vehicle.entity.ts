@@ -44,6 +44,9 @@ export class Vehicle {
   @Column()
   version: string;
 
+  @Column()
+  message: string;
+
   // Relación uno a muchos con Characteristic
   @OneToMany(() => Characteristic, characteristic => characteristic.vehicle)
   characteristics: Characteristic[];

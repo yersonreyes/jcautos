@@ -19,6 +19,7 @@ const operators_1 = require("rxjs/operators");
 const rxjs_1 = require("rxjs");
 const rxjs_2 = require("rxjs");
 const fs_1 = require("fs");
+const promises_1 = require("fs/promises");
 const path = require("path");
 const typeorm_1 = require("@nestjs/typeorm");
 const vehicle_entity_1 = require("./entities/vehicle.entity");
@@ -55,6 +56,38 @@ let VeeklsService = class VeeklsService {
         catch (error) {
             console.error('Error descargando la imagen:', error);
             throw new Error('No se pudo descargar la imagen');
+        }
+    }
+    async eliminarImagenes() {
+        const pictures = await this.pictureRepository.find();
+        let names = pictures.map(picture => picture.name + '.jpg');
+        const directory = path.join(__dirname, '..', '..', '..', 'public_html', 'wp-content', 'uploads', 'images');
+        const files = await (0, promises_1.readdir)(directory);
+        files.forEach(async (file) => {
+            if (!names.includes(file)) {
+                const filePath = path.join(directory, file);
+                await this.eliminarImagen(filePath);
+            }
+        });
+    }
+    async eliminarImagen(filePath) {
+        try {
+            if ((0, fs_1.existsSync)(filePath)) {
+                return new Promise((resolve, reject) => {
+                    (0, fs_1.unlink)(filePath, (error) => {
+                        if (error) {
+                            reject(error);
+                        }
+                        else {
+                            resolve(filePath);
+                        }
+                    });
+                });
+            }
+        }
+        catch (error) {
+            console.error('Error eliminando la imagen:', error);
+            throw new Error('No se pudo eliminar la imagen');
         }
     }
     async descargaImagenDeVehiculos() {
@@ -114,6 +147,7 @@ let VeeklsService = class VeeklsService {
             year: data.year,
             plate: data.plate,
             version: data.version,
+            message: data.promo?.message || '',
         });
         const characteristics = await Promise.all(data.characteristics.map(async (characteristic) => {
             const charEntity = this.characteristicRepository.create({ name: characteristic });
@@ -155,14 +189,29 @@ let VeeklsService = class VeeklsService {
             console.error('Error processing vehicles:', error);
         }
     }
+    async eliminarImagenesProgramada() {
+        try {
+            await this.eliminarImagenes();
+            console.log('Imágenes eliminadas');
+        }
+        catch (error) {
+            console.error('Error eliminando imágenes:', error);
+        }
+    }
 };
 exports.VeeklsService = VeeklsService;
 __decorate([
-    (0, schedule_1.Interval)(60 * 60 * 1000),
+    (0, schedule_1.Interval)(12 * 60 * 60 * 1000),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], VeeklsService.prototype, "tareaProgramada", null);
+__decorate([
+    (0, schedule_1.Cron)('0 0 1 * *'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], VeeklsService.prototype, "eliminarImagenesProgramada", null);
 exports.VeeklsService = VeeklsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(vehicle_entity_1.Vehicle)),

@@ -5,4 +5,5 @@ export declare class VeeklsController {
     findAll(): Promise<any[]>;
     verautos(): import("rxjs").Observable<any>;
     findAll2(): string;
+    delete(): Promise<void>;
 }

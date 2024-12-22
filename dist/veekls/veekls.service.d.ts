@@ -12,10 +12,13 @@ export declare class VeeklsService {
     vehicles: any[];
     constructor(vehicleRepository: Repository<Vehicle>, characteristicRepository: Repository<Characteristic>, pictureRepository: Repository<Picture>, httpService: HttpService);
     descargarImagen(imageUrl: string, fileName: string): Promise<string>;
+    eliminarImagenes(): Promise<void>;
+    eliminarImagen(filePath: string): Promise<unknown>;
     descargaImagenDeVehiculos(): Promise<void>;
     getVehiclesDataPrueba(skip?: number, limit?: number): Observable<any>;
     getVehiclesData(skip?: number, limit?: number): Observable<any>;
     createVehicle(data: any): Promise<Vehicle>;
     processarVehiculos(): Promise<any[]>;
     tareaProgramada(): Promise<void>;
+    eliminarImagenesProgramada(): Promise<void>;
 }

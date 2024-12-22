@@ -3,7 +3,8 @@ import { HttpService } from '@nestjs/axios';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { lastValueFrom } from 'rxjs';
-import { createWriteStream, existsSync, mkdirSync } from 'fs';
+import { createWriteStream, existsSync, mkdirSync, unlink } from 'fs';
+import { readdir } from 'fs/promises';
 import * as path from 'path';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Vehicle } from './entities/vehicle.entity';
@@ -66,7 +67,54 @@ export class VeeklsService {
       throw new Error('No se pudo descargar la imagen');
     }
   }
- 
+
+  async eliminarImagenes() { 
+    // obtiene todlas las imagenes de la base de datos
+    const pictures = await this.pictureRepository.find();
+    
+    let  names = pictures.map(picture => picture.name + '.jpg');
+
+    // elimina las imagenes del directorio  que no esten en la base de datos 
+    const directory = path.join(__dirname,'..', '..','..','public_html', 'wp-content', 'uploads','images',); // puedes ajustar la ruta
+
+    
+    // elimina las imagenes del directorio  que no esten en la base de datos
+    const files = await readdir(directory);
+
+
+    files.forEach(async file => {
+      if (!names.includes(file)) {
+        const filePath = path.join(directory, file);
+        await this.eliminarImagen(filePath);
+      }
+    });
+
+
+  }
+
+  async eliminarImagen(filePath: string) {
+    try {
+      if (existsSync
+
+    (filePath)) {
+        return new Promise((resolve, reject) => {
+          unlink(filePath, (error) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(filePath);
+            }
+          });
+        });
+      }
+    } catch (error) {
+      console.error('Error eliminando la imagen:', error);
+      throw new Error('No se pudo eliminar la imagen');
+    }
+    
+  }
+
+  
   async descargaImagenDeVehiculos(){
     const vehicles = this.vehicles;
     vehicles.forEach(vehicle => {
@@ -133,6 +181,7 @@ export class VeeklsService {
       year: data.year,
       plate: data.plate,
       version: data.version,
+      message: data.promo?.message || '',
     });
 
     // Crear y asociar características al vehículo relacion de uno a muchos
@@ -178,7 +227,7 @@ export class VeeklsService {
     return this.vehicles;
   }
 
-  @Interval(60 * 60 * 1000) // Cada 60 minutos en milisegundos
+  @Interval(12 * 60 * 60 * 1000) // Cada 12 horas en milisegundos
   async tareaProgramada() {
     try {
       await lastValueFrom(this.getVehiclesData());
@@ -193,5 +242,15 @@ export class VeeklsService {
       console.error('Error processing vehicles:', error);
     }
   }
+
+  @Cron('0 0 1 * *') // Todos los días a la 1:00 AM
+    async eliminarImagenesProgramada() {
+      try {
+        await this.eliminarImagenes();
+        console.log('Imágenes eliminadas');
+      } catch (error) {
+        console.error('Error eliminando imágenes:', error);
+      }
+    }
 }
 

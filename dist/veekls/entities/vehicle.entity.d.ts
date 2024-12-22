@@ -14,6 +14,7 @@ export declare class Vehicle {
     year: number;
     plate: string;
     version: string;
+    message: string;
     characteristics: Characteristic[];
     pictures: Picture[];
 }

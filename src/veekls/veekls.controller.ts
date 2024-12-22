@@ -20,4 +20,9 @@ export class VeeklsController {
     return 'v001';
   }
 
+  @Get('deleteImages')
+  delete() {
+    return this.veeklsService.eliminarImagenes();
+  }
+
 }

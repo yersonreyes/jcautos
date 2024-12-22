@@ -69,6 +69,10 @@ __decorate([
     __metadata("design:type", String)
 ], Vehicle.prototype, "version", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Vehicle.prototype, "message", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => characteristic_entity_1.Characteristic, characteristic => characteristic.vehicle),
     __metadata("design:type", Array)
 ], Vehicle.prototype, "characteristics", void 0);
