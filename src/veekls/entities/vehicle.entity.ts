@@ -44,7 +44,7 @@ export class Vehicle {
   @Column()
   version: string;
 
-  @Column()
+  @Column({ type: 'text' })
   message: string;
 
   // Relación uno a muchos con Characteristic

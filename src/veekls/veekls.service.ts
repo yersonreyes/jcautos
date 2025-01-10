@@ -199,9 +199,14 @@ export class VeeklsService {
     // Crear y asociar imágenes
 
     const pictures = await Promise.all(
-      data.pictures.map(async (picture) => {
-        const picEntity = this.pictureRepository.create({ name: picture });
-        return this.pictureRepository.save(picEntity);
+      data.pictures.map(async (picture, index) => {
+
+      const picEntity = this.pictureRepository.create({ 
+        name: picture,
+        principal: index === 0 ? true : false,
+      });
+      
+      return this.pictureRepository.save(picEntity);
       })
     );
 

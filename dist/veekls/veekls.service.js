@@ -155,8 +155,11 @@ let VeeklsService = class VeeklsService {
             return this.characteristicRepository.save(charEntity);
         }));
         vehicle.characteristics = characteristics;
-        const pictures = await Promise.all(data.pictures.map(async (picture) => {
-            const picEntity = this.pictureRepository.create({ name: picture });
+        const pictures = await Promise.all(data.pictures.map(async (picture, index) => {
+            const picEntity = this.pictureRepository.create({
+                name: picture,
+                principal: index === 0 ? true : false,
+            });
             return this.pictureRepository.save(picEntity);
         }));
         vehicle.pictures = pictures;

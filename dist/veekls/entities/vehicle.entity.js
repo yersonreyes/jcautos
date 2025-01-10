@@ -69,7 +69,7 @@ __decorate([
     __metadata("design:type", String)
 ], Vehicle.prototype, "version", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ type: 'text' }),
     __metadata("design:type", String)
 ], Vehicle.prototype, "message", void 0);
 __decorate([

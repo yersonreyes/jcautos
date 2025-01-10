@@ -9,6 +9,9 @@ export class Picture {
   @Column()
   name: string;
 
+  @Column()
+  principal: boolean;
+
   // Relación muchos a uno con Vehicle
   @ManyToOne(() => Vehicle, vehicle => vehicle.pictures)
   vehicle: Vehicle;

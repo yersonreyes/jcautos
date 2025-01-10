@@ -24,6 +24,10 @@ __decorate([
     __metadata("design:type", String)
 ], Picture.prototype, "name", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Boolean)
+], Picture.prototype, "principal", void 0);
+__decorate([
     (0, typeorm_1.ManyToOne)(() => vehicle_entity_1.Vehicle, vehicle => vehicle.pictures),
     __metadata("design:type", vehicle_entity_1.Vehicle)
 ], Picture.prototype, "vehicle", void 0);
