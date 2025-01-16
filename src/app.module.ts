@@ -12,9 +12,9 @@ import { ScheduleModule } from '@nestjs/schedule';
       type: 'mysql',
       host: 'localhost',        // Cambia a la IP o nombre de tu servidor de MySQL si es necesario
       port: 3306,               // Puerto por defecto de MySQL
-      username: 'devjyrau_wpjyrnov2024dev',   // Usuario de la base de datos
-      password: '4!pf(50qbS', // Contraseña de la base de datos
-      database: 'devjyrau_wpjyrnov2024dev', // Nombre de la base de datos
+      username: 'jyrautos_wpjyrprd',   // Usuario de la base de datos
+      password: '-4G25SpX)o', // Contraseña de la base de datos
+      database: 'jyrautos_wpjyrprd', // Nombre de la base de datos
       autoLoadEntities: true,   // Carga automática de ent  idades
       synchronize: true,        // Para desarrollo, puedes dejarlo en true; en producción es mejor false
     }),
