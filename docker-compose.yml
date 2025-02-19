@@ -5,10 +5,10 @@ services:
     image: mysql:latest
     container_name: mysql_db
     environment:
-      MYSQL_ROOT_PASSWORD: 4!pf(50qbS # Cambia esto por una contraseña segura
-      MYSQL_DATABASE: devjyrau_wpjyrnov2024dev       # Nombre de la base de datos que se creará
-      MYSQL_USER: devjyrau_wpjyrnov2024dev                 # Nombre de usuario que se creará
-      MYSQL_PASSWORD: 4!pf(50qbS     # Contraseña para el usuario
+      MYSQL_ROOT_PASSWORD: -4G25SpX)o # Cambia esto por una contraseña segura
+      MYSQL_DATABASE: jyrautos_wpjyrprd      # Nombre de la base de datos que se creará
+      MYSQL_USER: jyrautos_wpjyrprd                # Nombre de usuario que se creará
+      MYSQL_PASSWORD: -4G25SpX)o   # Contraseña para el usuario
     ports:
       - "3306:3306"                    # Mapea el puerto 3306 al host
     volumes:

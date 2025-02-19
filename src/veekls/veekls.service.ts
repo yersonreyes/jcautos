@@ -64,7 +64,7 @@ export class VeeklsService {
       });
     } catch (error) {
       console.error('Error descargando la imagen:', error);
-      throw new Error('No se pudo descargar la imagen');
+      return ''; // Continue execution even if an error occurs
     }
   }
 
@@ -132,9 +132,7 @@ export class VeeklsService {
     };
     return this.httpService.get(url, { headers }).pipe(
       map(async response => {
-        this.vehicles = response.data;
-        const responseHeaders = response.headers; // Leer los headers de la respuesta
-        return this.vehicles;
+        console.log('Vehículos obtenidos:', response.data.length);
       }),
       catchError(error => {
         console.error('Error fetching data:', error);

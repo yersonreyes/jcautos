@@ -55,7 +55,7 @@ let VeeklsService = class VeeklsService {
         }
         catch (error) {
             console.error('Error descargando la imagen:', error);
-            throw new Error('No se pudo descargar la imagen');
+            return '';
         }
     }
     async eliminarImagenes() {
@@ -106,9 +106,7 @@ let VeeklsService = class VeeklsService {
             'Authorization': 'Basic ' + 'NjEyNGYyY2Q4MWY2YjQ1MGFlNWIxOTNhOkFrMmdOOTVVYVoxZUxIS0NyWjAyQkVoYmlaU1FJMU5EczdQeUY4b0RKdjg='
         };
         return this.httpService.get(url, { headers }).pipe((0, operators_1.map)(async (response) => {
-            this.vehicles = response.data;
-            const responseHeaders = response.headers;
-            return this.vehicles;
+            console.log('Vehículos obtenidos:', response.data.length);
         }), (0, operators_1.catchError)(error => {
             console.error('Error fetching data:', error);
             return (0, rxjs_1.throwError)(() => new Error('Error fetching data from vehicles API'));
