@@ -166,7 +166,6 @@ let VeeklsService = class VeeklsService {
     async processarVehiculos() {
         try {
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData());
-            await this.descargaImagenDeVehiculos();
             await Promise.all(this.vehicles.map(async (vehicle) => {
                 return this.createVehicle(vehicle);
             }));
@@ -180,7 +179,6 @@ let VeeklsService = class VeeklsService {
         try {
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData());
             console.log('Vehículos obtenidos:', this.vehicles.length);
-            await this.descargaImagenDeVehiculos();
             console.log('Imágenes descargadas');
             await Promise.all(this.vehicles.map(async (vehicle) => {
                 return this.createVehicle(vehicle);

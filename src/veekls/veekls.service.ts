@@ -221,7 +221,7 @@ export class VeeklsService {
   async processarVehiculos() {
     try {
       await lastValueFrom(this.getVehiclesData());
-      await this.descargaImagenDeVehiculos();
+     // await this.descargaImagenDeVehiculos();
       await Promise.all(this.vehicles.map(async (vehicle) => {
         return this.createVehicle(vehicle);
       }));
@@ -236,7 +236,7 @@ export class VeeklsService {
     try {
       await lastValueFrom(this.getVehiclesData());
       console.log('Vehículos obtenidos:', this.vehicles.length);
-      await this.descargaImagenDeVehiculos();
+      //await this.descargaImagenDeVehiculos();
       console.log('Imágenes descargadas');
       await Promise.all(this.vehicles.map(async (vehicle) => {
         return this.createVehicle(vehicle);
