@@ -106,6 +106,9 @@ let VeeklsService = class VeeklsService {
             'Authorization': 'Basic ' + 'NjEyNGYyY2Q4MWY2YjQ1MGFlNWIxOTNhOkFrMmdOOTVVYVoxZUxIS0NyWjAyQkVoYmlaU1FJMU5EczdQeUY4b0RKdjg='
         };
         return this.httpService.get(url, { headers }).pipe((0, operators_1.map)(async (response) => {
+            await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
+            await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
+            await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
             console.log('Vehículos obtenidos:', response.data.length);
         }), (0, operators_1.catchError)(error => {
             console.error('Error fetching data:', error);
@@ -113,11 +116,11 @@ let VeeklsService = class VeeklsService {
         }));
     }
     getVehiclesData(skip = 0, limit = 50) {
-        const url = `https://vehicles.public.api.veekls.com/?skip=${skip}&limit=${limit}`;
+        const url1 = `https://vehicles.public.api.veekls.com/?skip=${skip}&limit=${limit}`;
         const headers = {
             'Authorization': 'Basic ' + 'NjEyNGYyY2Q4MWY2YjQ1MGFlNWIxOTNhOkFrMmdOOTVVYVoxZUxIS0NyWjAyQkVoYmlaU1FJMU5EczdQeUY4b0RKdjg='
         };
-        return this.httpService.get(url, { headers }).pipe((0, operators_1.map)(async (response) => {
+        return this.httpService.get(url1, { headers }).pipe((0, operators_1.map)(async (response) => {
             if (response.data.length === 0) {
                 console.log('No hay más vehículos para procesar');
                 return;
@@ -162,9 +165,6 @@ let VeeklsService = class VeeklsService {
     }
     async processarVehiculos() {
         try {
-            await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
-            await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
-            await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(0, 50));
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(50, 50));
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(100, 50));
@@ -180,9 +180,6 @@ let VeeklsService = class VeeklsService {
     }
     async tareaProgramada() {
         try {
-            await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
-            await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
-            await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(0, 50));
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(50, 50));
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(100, 50));

@@ -132,6 +132,9 @@ export class VeeklsService {
     };
     return this.httpService.get(url, { headers }).pipe(
       map(async response => {
+        await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
+        await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
+        await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
         console.log('Vehículos obtenidos:', response.data.length);
       }),
       catchError(error => {
@@ -142,11 +145,11 @@ export class VeeklsService {
   }
 
   getVehiclesData(skip: number = 0, limit: number = 50): Observable<any> {
-    const url = `https://vehicles.public.api.veekls.com/?skip=${skip}&limit=${limit}`;
+    const url1 = `https://vehicles.public.api.veekls.com/?skip=${skip}&limit=${limit}`;
     const headers = {
       'Authorization': 'Basic ' + 'NjEyNGYyY2Q4MWY2YjQ1MGFlNWIxOTNhOkFrMmdOOTVVYVoxZUxIS0NyWjAyQkVoYmlaU1FJMU5EczdQeUY4b0RKdjg='
     };
-    return this.httpService.get(url, { headers }).pipe(
+    return this.httpService.get(url1, { headers }).pipe(
       map(async response => {
         if (response.data.length === 0) {
           console.log('No hay más vehículos para procesar');
@@ -217,9 +220,6 @@ export class VeeklsService {
 
   async processarVehiculos() {
     try {
-      await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
-      await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
-      await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
       await lastValueFrom(this.getVehiclesData(0, 50));
       await lastValueFrom(this.getVehiclesData(50, 50));
       await lastValueFrom(this.getVehiclesData(100, 50));
@@ -237,9 +237,6 @@ export class VeeklsService {
   @Interval(12 * 60 * 60 * 1000) // Cada 12 horas en milisegundos
   async tareaProgramada() {
     try {
-      await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
-      await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
-      await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
       await lastValueFrom(this.getVehiclesData(0, 50));
       await lastValueFrom(this.getVehiclesData(50, 50));
       await lastValueFrom(this.getVehiclesData(100, 50));
