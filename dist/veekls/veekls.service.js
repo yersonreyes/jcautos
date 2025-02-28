@@ -162,12 +162,12 @@ let VeeklsService = class VeeklsService {
     }
     async processarVehiculos() {
         try {
-            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(0, 50));
-            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(50, 50));
-            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(100, 50));
             await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
             await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
             await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
+            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(0, 50));
+            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(50, 50));
+            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(100, 50));
             await Promise.all(this.vehicles.map(async (vehicle) => {
                 return this.createVehicle(vehicle);
             }));
@@ -180,12 +180,12 @@ let VeeklsService = class VeeklsService {
     }
     async tareaProgramada() {
         try {
-            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(0, 50));
-            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(50, 50));
-            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(100, 50));
             await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
             await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
             await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
+            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(0, 50));
+            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(50, 50));
+            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(100, 50));
             await Promise.all(this.vehicles.map(async (vehicle) => {
                 return this.createVehicle(vehicle);
             }));

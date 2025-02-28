@@ -16,8 +16,8 @@ let VeeklsController = class VeeklsController {
     constructor(veeklsService) {
         this.veeklsService = veeklsService;
     }
-    findAll() {
-        return this.veeklsService.processarVehiculos();
+    async findAll() {
+        return await this.veeklsService.processarVehiculos();
     }
     verautos() {
         return this.veeklsService.getVehiclesDataPrueba();
@@ -34,7 +34,7 @@ __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], VeeklsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)('autos'),

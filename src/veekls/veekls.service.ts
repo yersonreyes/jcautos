@@ -217,12 +217,12 @@ export class VeeklsService {
 
   async processarVehiculos() {
     try {
-      await lastValueFrom(this.getVehiclesData(0, 50));
-      await lastValueFrom(this.getVehiclesData(50, 50));
-      await lastValueFrom(this.getVehiclesData(100, 50));
       await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
       await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
       await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
+      await lastValueFrom(this.getVehiclesData(0, 50));
+      await lastValueFrom(this.getVehiclesData(50, 50));
+      await lastValueFrom(this.getVehiclesData(100, 50));
       await Promise.all(this.vehicles.map(async (vehicle) => {
         return this.createVehicle(vehicle);
       }));
@@ -237,12 +237,12 @@ export class VeeklsService {
   @Interval(12 * 60 * 60 * 1000) // Cada 12 horas en milisegundos
   async tareaProgramada() {
     try {
-      await lastValueFrom(this.getVehiclesData(0, 50));
-      await lastValueFrom(this.getVehiclesData(50, 50));
-      await lastValueFrom(this.getVehiclesData(100, 50));
       await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
       await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
       await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
+      await lastValueFrom(this.getVehiclesData(0, 50));
+      await lastValueFrom(this.getVehiclesData(50, 50));
+      await lastValueFrom(this.getVehiclesData(100, 50));
       await Promise.all(this.vehicles.map(async (vehicle) => {
         return this.createVehicle(vehicle);
       }));

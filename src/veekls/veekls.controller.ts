@@ -6,8 +6,8 @@ export class VeeklsController {
   constructor(private readonly veeklsService: VeeklsService) {}
 
   @Get()
-  findAll() {
-    return this.veeklsService.processarVehiculos();
+  async findAll() {
+    return await this.veeklsService.processarVehiculos();
   }
 
   @Get('autos')
