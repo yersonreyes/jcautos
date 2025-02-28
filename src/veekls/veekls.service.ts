@@ -132,9 +132,6 @@ export class VeeklsService {
     };
     return this.httpService.get(url, { headers }).pipe(
       map(async response => {
-        await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
-        await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
-        await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
         console.log('Vehículos obtenidos:', response.data.length);
       }),
       catchError(error => {
@@ -155,6 +152,9 @@ export class VeeklsService {
           console.log('No hay más vehículos para procesar');
           return;
         }
+        await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
+        await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
+        await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
         this.vehicles = this.vehicles.concat(response.data);
         return this.vehicles;
       }),

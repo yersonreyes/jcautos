@@ -106,9 +106,6 @@ let VeeklsService = class VeeklsService {
             'Authorization': 'Basic ' + 'NjEyNGYyY2Q4MWY2YjQ1MGFlNWIxOTNhOkFrMmdOOTVVYVoxZUxIS0NyWjAyQkVoYmlaU1FJMU5EczdQeUY4b0RKdjg='
         };
         return this.httpService.get(url, { headers }).pipe((0, operators_1.map)(async (response) => {
-            await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
-            await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
-            await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
             console.log('Vehículos obtenidos:', response.data.length);
         }), (0, operators_1.catchError)(error => {
             console.error('Error fetching data:', error);
@@ -125,6 +122,9 @@ let VeeklsService = class VeeklsService {
                 console.log('No hay más vehículos para procesar');
                 return;
             }
+            await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
+            await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
+            await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
             this.vehicles = this.vehicles.concat(response.data);
             return this.vehicles;
         }), (0, operators_1.catchError)(error => {
