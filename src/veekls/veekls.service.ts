@@ -141,21 +141,18 @@ export class VeeklsService {
     );
   }
 
-  getVehiclesData(skip: number = 0, limit: number = 100): Observable<any> {
+  getVehiclesData(skip: number = 0, limit: number = 50): Observable<any> {
     const url = `https://vehicles.public.api.veekls.com/?skip=${skip}&limit=${limit}`;
     const headers = {
       'Authorization': 'Basic ' + 'NjEyNGYyY2Q4MWY2YjQ1MGFlNWIxOTNhOkFrMmdOOTVVYVoxZUxIS0NyWjAyQkVoYmlaU1FJMU5EczdQeUY4b0RKdjg='
     };
     return this.httpService.get(url, { headers }).pipe(
       map(async response => {
-        this.vehicles = response.data;
-        console.log('Vehículos obtenidos:', this.vehicles.length);
-        await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
-        console.log('Imágenes eliminadas');
-        await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
-        console.log('Características eliminadas');
-        await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
-        console.log('Vehículos eliminados');
+        if (response.data.length === 0) {
+          console.log('No hay más vehículos para procesar');
+          return;
+        }
+        this.vehicles = this.vehicles.concat(response.data);
         return this.vehicles;
       }),
       catchError(error => {
@@ -220,28 +217,35 @@ export class VeeklsService {
 
   async processarVehiculos() {
     try {
-      await lastValueFrom(this.getVehiclesData());
-     // await this.descargaImagenDeVehiculos();
+      await lastValueFrom(this.getVehiclesData(0, 50));
+      await lastValueFrom(this.getVehiclesData(50, 50));
+      await lastValueFrom(this.getVehiclesData(100, 50));
+      await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
+      await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
+      await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
       await Promise.all(this.vehicles.map(async (vehicle) => {
         return this.createVehicle(vehicle);
       }));
     } catch (error) {
       console.error('Error processing vehicles:', error);
     }
+    console.log('Vehículos procesados:', this.vehicles.length);
+    
     return this.vehicles;
   }
 
   @Interval(12 * 60 * 60 * 1000) // Cada 12 horas en milisegundos
   async tareaProgramada() {
     try {
-      await lastValueFrom(this.getVehiclesData());
-      console.log('Vehículos obtenidos:', this.vehicles.length);
-      //await this.descargaImagenDeVehiculos();
-      console.log('Imágenes descargadas');
+      await lastValueFrom(this.getVehiclesData(0, 50));
+      await lastValueFrom(this.getVehiclesData(50, 50));
+      await lastValueFrom(this.getVehiclesData(100, 50));
+      await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
+      await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
+      await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
       await Promise.all(this.vehicles.map(async (vehicle) => {
         return this.createVehicle(vehicle);
       }));
-      console.log('Vehículos procesados:', this.vehicles.length);
     } catch (error) {
       console.error('Error processing vehicles:', error);
     }

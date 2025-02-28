@@ -112,20 +112,17 @@ let VeeklsService = class VeeklsService {
             return (0, rxjs_1.throwError)(() => new Error('Error fetching data from vehicles API'));
         }));
     }
-    getVehiclesData(skip = 0, limit = 100) {
+    getVehiclesData(skip = 0, limit = 50) {
         const url = `https://vehicles.public.api.veekls.com/?skip=${skip}&limit=${limit}`;
         const headers = {
             'Authorization': 'Basic ' + 'NjEyNGYyY2Q4MWY2YjQ1MGFlNWIxOTNhOkFrMmdOOTVVYVoxZUxIS0NyWjAyQkVoYmlaU1FJMU5EczdQeUY4b0RKdjg='
         };
         return this.httpService.get(url, { headers }).pipe((0, operators_1.map)(async (response) => {
-            this.vehicles = response.data;
-            console.log('Vehículos obtenidos:', this.vehicles.length);
-            await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
-            console.log('Imágenes eliminadas');
-            await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
-            console.log('Características eliminadas');
-            await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
-            console.log('Vehículos eliminados');
+            if (response.data.length === 0) {
+                console.log('No hay más vehículos para procesar');
+                return;
+            }
+            this.vehicles = this.vehicles.concat(response.data);
             return this.vehicles;
         }), (0, operators_1.catchError)(error => {
             console.error('Error fetching data:', error);
@@ -165,7 +162,12 @@ let VeeklsService = class VeeklsService {
     }
     async processarVehiculos() {
         try {
-            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData());
+            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(0, 50));
+            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(50, 50));
+            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(100, 50));
+            await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
+            await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
+            await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
             await Promise.all(this.vehicles.map(async (vehicle) => {
                 return this.createVehicle(vehicle);
             }));
@@ -173,17 +175,20 @@ let VeeklsService = class VeeklsService {
         catch (error) {
             console.error('Error processing vehicles:', error);
         }
+        console.log('Vehículos procesados:', this.vehicles.length);
         return this.vehicles;
     }
     async tareaProgramada() {
         try {
-            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData());
-            console.log('Vehículos obtenidos:', this.vehicles.length);
-            console.log('Imágenes descargadas');
+            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(0, 50));
+            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(50, 50));
+            await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(100, 50));
+            await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
+            await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
+            await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
             await Promise.all(this.vehicles.map(async (vehicle) => {
                 return this.createVehicle(vehicle);
             }));
-            console.log('Vehículos procesados:', this.vehicles.length);
         }
         catch (error) {
             console.error('Error processing vehicles:', error);
