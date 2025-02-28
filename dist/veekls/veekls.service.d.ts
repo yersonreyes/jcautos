@@ -18,6 +18,7 @@ export declare class VeeklsService {
     getVehiclesDataPrueba(skip?: number, limit?: number): Observable<any>;
     getVehiclesData(skip?: number, limit?: number): Observable<any>;
     createVehicle(data: any): Promise<Vehicle>;
+    deleteData(): Promise<void>;
     processarVehiculos(): Promise<any[]>;
     tareaProgramada(): Promise<void>;
     eliminarImagenesProgramada(): Promise<void>;

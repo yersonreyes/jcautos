@@ -122,9 +122,6 @@ let VeeklsService = class VeeklsService {
                 console.log('No hay más vehículos para procesar');
                 return;
             }
-            await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
-            await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
-            await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
             this.vehicles = this.vehicles.concat(response.data);
             return this.vehicles;
         }), (0, operators_1.catchError)(error => {
@@ -163,8 +160,15 @@ let VeeklsService = class VeeklsService {
         vehicle.pictures = pictures;
         return this.vehicleRepository.save(vehicle);
     }
+    async deleteData() {
+        await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
+        await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
+        await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
+    }
     async processarVehiculos() {
         try {
+            await this.deleteData();
+            this.vehicles = [];
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(0, 50));
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(50, 50));
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(100, 50));
@@ -180,6 +184,8 @@ let VeeklsService = class VeeklsService {
     }
     async tareaProgramada() {
         try {
+            await this.deleteData();
+            this.vehicles = [];
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(0, 50));
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(50, 50));
             await (0, rxjs_2.lastValueFrom)(this.getVehiclesData(100, 50));

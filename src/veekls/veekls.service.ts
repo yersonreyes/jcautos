@@ -152,9 +152,6 @@ export class VeeklsService {
           console.log('No hay más vehículos para procesar');
           return;
         }
-        await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
-        await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
-        await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
         this.vehicles = this.vehicles.concat(response.data);
         return this.vehicles;
       }),
@@ -218,8 +215,16 @@ export class VeeklsService {
 
   }
 
+  async deleteData() {
+    await this.pictureRepository.createQueryBuilder().delete().from('wp0p_picture').execute();
+    await this.characteristicRepository.createQueryBuilder().delete().from('wp0p_characteristic').execute();
+    await this.vehicleRepository.createQueryBuilder().delete().from('wp0p_vehicle').execute();
+  }
+
   async processarVehiculos() {
     try {
+      await this.deleteData();
+      this.vehicles = [];
       await lastValueFrom(this.getVehiclesData(0, 50));
       await lastValueFrom(this.getVehiclesData(50, 50));
       await lastValueFrom(this.getVehiclesData(100, 50));
@@ -237,6 +242,8 @@ export class VeeklsService {
   @Interval(12 * 60 * 60 * 1000) // Cada 12 horas en milisegundos
   async tareaProgramada() {
     try {
+      await this.deleteData();
+      this.vehicles = [];
       await lastValueFrom(this.getVehiclesData(0, 50));
       await lastValueFrom(this.getVehiclesData(50, 50));
       await lastValueFrom(this.getVehiclesData(100, 50));
